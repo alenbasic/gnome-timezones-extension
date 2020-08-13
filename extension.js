@@ -353,6 +353,21 @@ var timezones = [
 const {GLib, St, Clutter, GnomeDesktop, Gio } = imports.gi;
 const { main, panelMenu, popupMenu } = imports.ui;
 
+// imports explained
+/* 
+Gio          - used here for extension setting saving to file
+GnomeDesktop - used to grab the current time as a string
+Clutter      - used for the configuration of the button and input field
+St           - Shell Toolkit; used for creating labels, input fields and the like
+GLib         - Variant used for the serializing of settings, the others are used
+               to create a structure useful for the timezone creation and modication
+
+panelMenu    - used for the panel button that pops out a button with the label
+               itself used to display the various timezones the user has active
+popupMenu    - the actual pop up menu with all the timezones and config 
+               options and all that listed            
+*/
+
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 
@@ -384,6 +399,8 @@ let Clock = {
     });
 
     Clock.loadSettings();
+
+    // the 0.5 sets it so the pop up menu appears right in the middle of the label
 
     let button = new panelMenu.Button(0.50, Me.metadata.name);
     button.set_y_align(Clutter.ActorAlign.CENTER);
